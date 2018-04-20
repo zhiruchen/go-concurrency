@@ -27,3 +27,5 @@ func receiveChan(ch chan int) {
 		fmt.Printf("received -> %d\n", <-ch)
 	}
 }
+Cannot find any of the specified fonts (Source Code Pro)! Font settings may not
+            be correct.      
