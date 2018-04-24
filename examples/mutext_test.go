@@ -3,8 +3,8 @@ package examples
 import "testing"
 
 func TestIncreaseValueCounter(t *testing.T) {
-	cases := []struct{
-		n int
+	cases := []struct {
+		n      int
 		result int32
 	}{
 		{
