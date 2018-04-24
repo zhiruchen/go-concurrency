@@ -1,2 +1,2 @@
 # go-concurrency
-golfing concurrency exercise code
+go concurrency exercise code

@@ -9,13 +9,13 @@ func doJobs() {
 	go func() {
 		for {
 			select {
-				case job, more := <- jobs:
-					if more {
-						fmt.Println("received job: ", job)
-					} else {
-						done <- struct{}{}
-						return
-					}
+			case job, more := <-jobs:
+				if more {
+					fmt.Println("received job: ", job)
+				} else {
+					done <- struct{}{}
+					return
+				}
 			}
 		}
 	}()
