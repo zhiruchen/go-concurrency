@@ -6,7 +6,7 @@ import (
 )
 
 type concurrentStack struct {
-	sync.RWMutex // guards follwing
+	sync.RWMutex // guards following
 	elements     []interface{}
 	size         int32
 }
