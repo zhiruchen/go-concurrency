@@ -1,13 +1,18 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"runtime"
+)
 
 func main() {
-	sendChan := make(chan int, 10)
-	receiveChan := make(chan int, 10)
+	runtime.GOMAXPROCS(8)
+	N := 100
+	sendChan := make(chan int, N)
+	receiveChan := make(chan int, N)
 
 	go func() {
-		for i := 1; i <= 10; i++ {
+		for i := 1; i <= N; i++ {
 			fmt.Printf("sending %d\n", i)
 			sendChan <- i
 		}

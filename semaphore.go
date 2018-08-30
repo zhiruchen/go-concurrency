@@ -6,10 +6,9 @@ import (
 )
 
 func main() {
-	ch := make(chan int64)
-	go sum([]int64{1, 3, 4, 5, 6, 10}, ch)
-
-	fmt.Printf("sum = %d\n", <-ch)
+	for v := range recvBufferedChan() {
+		fmt.Printf("%d, ", v)
+	}
 }
 
 func sum(numbers []int64, sum chan int64) {
@@ -20,4 +19,51 @@ func sum(numbers []int64, sum chan int64) {
 	}
 
 	sum <- total
+}
+
+func bufferChanSum() {
+	ll := [][]int32{
+		{1,2,3,4},
+		{5,6,7,8},
+		{9,10,11},
+		{100,1000,999,8888},
+	}
+
+	results := make(chan int32, len(ll))
+	for _, l := range ll {
+		go func(intList []int32) {
+			var sum int32
+			for _, v := range intList {
+				sum+= v
+			}
+			results <- sum
+		}(l)
+	}
+
+	for i := 1; i <= len(ll); i++ {
+		fmt.Println(<-results)
+	}
+	close(results)
+}
+
+func sendToClosedChan() {
+	c := make(chan int)
+	close(c)
+	c <- 100
+}
+
+func receiveFromClosedChan() {
+	c := make(chan int)
+	close(c)
+	v ,ok := <-c
+	fmt.Println(v, ok)
+}
+
+func recvBufferedChan() chan int {
+	vs := make(chan int, 5)
+	for i := 1; i <= 5; i++ {
+		vs <- i*10
+	}
+	close(vs)
+	return vs
 }

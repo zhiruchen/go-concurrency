@@ -4,11 +4,11 @@ import (
 	"runtime"
 	"sync"
 
-	"github.com/labstack/gommon/log"
+	"log"
 )
 
 func pc() {
-	runtime.GOMAXPROCS(4)
+	runtime.GOMAXPROCS(8)
 	c := make(chan int, 10)
 	done := make(chan struct{})
 	go consume(c, done)
